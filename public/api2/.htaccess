@@ -1,0 +1,7 @@
+
+RewriteEngine On
+
+RewriteRule    ^([A-Za-z0-9-]+)/([A-Za-z0-9-|]+)/?$ config/api.php?q=$1&q2=$2    [NC,L]
+RewriteRule    ^([A-Za-z0-9-]+)/?$ config/api.php?q=$1    [NC,L]
+ErrorDocument 404 /404.html
+

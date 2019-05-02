@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<?php
+
+$formal = json_decode($res[0]['formaleducation'], TRUE);
+
+$ipk = json_decode($res[0]['gpa'], TRUE);
+
+$nonforamal = json_decode($res[0]['nonformaleducation'], TRUE);
+
+$psycho = json_decode($res[0]['psychotestdetails'], TRUE);
+
+$ptest = json_decode($res[0]['personaltestdetails'], TRUE);
+
+?>
+
+<style>
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+	width: 98%;
+}
+
+table.pokok
+{
+	width: 70%;
+}
+
+th, td {
+    text-align: left;
+    padding: 7px;
+}
+
+tr:nth-child(odd) {
+    background-color: #f2f2f2
+}
+
+.w3-display-topright{
+	position:absolute;right:0;top:0
+}
+
+.w3-padding{
+	padding:8px 16px!important
+}
+
+.solid {border-style: none;}
+
+</style>
+
+</head>
+<body>
+	
+	<div class='col-xs-6'>
+		<br><img src="https://i.imgur.com/tW9VccT.jpg" class="w3-display-topright w3-padding" width="105">
+	</div>	
+
+	<div class="col-xs-6">
+		<table class="table table-striped table-bordered pokok">
+			<tr>
+			  <td>Nomor Kandidat</td>
+			  <td><?php echo $res[0]['candidateno']?></td>
+			</tr>
+
+			<tr>
+			  <td>Tanggal Apply</td>
+			  <td><?php $time = strtotime($res[0]['appdate']);
+					$newformat = date('d/m/Y',$time);
+					echo $newformat;?></td>
+			</tr>
+			
+			<tr>
+			  <td>Posisi/Jabatan</td>
+			  <td><?php echo $res[0]['position']?></td>
+			</tr>
+	
+			<tr>
+			  <td>Nama Pelamar</td>
+			  <td><?php echo $res[0]['personalname']?></td>
+			</tr>
+			
+			<tr>
+			  <td>Untuk Perusahaan</td>
+			  <td><?php echo $res[0]['comname'];?></td>
+			</tr>
+		</table>
+	</div>
+	
+	<br><br><br><br>	
+	<div>
+		<div class="solid">
+		<h4><u>Informasi Pokok</u></h4>
+
+		<table class="table table-striped table-bordered">
+			<tr>
+				<td>Nama Lengkap</td>
+				<td><?php echo $res[0]['personalname']?></td>
+			</tr>
+			<tr>
+				<td>Tempat/Tanggal Lahir</td>
+				<td><?php echo $res[0]['birthlocation']?>/<?php $time = strtotime($res[0]['dob']);
+				$newformat = date('d-M-Y',$time);
+				echo $newformat;?></td>
+			</tr>
+			<tr>
+				<td>Jenis Kelamin</td>
+				<td><?php echo $res[0]['gender']?></td>
+			</tr>
+			<tr>
+				<td>Etnik</td>
+				<td><?php echo $res[0]['ethnic']?></td>
+			</tr>
+			<tr>
+				<td>Tipe Identitas</td>
+				<td><?php echo $res[0]['idtype']?></td>
+			</tr>
+			<tr>
+				<td>Nomor Identitas</td>
+				<td><?php echo $res[0]['idno']?></td>
+			</tr>
+			<tr>
+				<td>Status Pernikahan</td>
+				<td><?php echo $res[0]['marital']?></td>
+			</tr>
+			<tr>
+				<td>Agama</td>
+				<td><?php echo $res[0]['religion']?></td>
+			</tr>
+		</table><br>	 
+		</div>
+	</div>
+		
+
+	<br>
+	<div>
+		<div class="solid">
+		<h4><u>Pendidikan</u></h4>
+
+		<label>Formal</label>:
+		<table class="table table-striped table-bordered">
+			<tr>
+				<th>Tingkat</th>
+				<th>Nama Lembaga</th>
+				<th>Jurusan</th>
+				<th>Periode Masuk</th>
+				<th>Periode Lulus</th>
+			</tr>
+			<tr>
+				<td><?php foreach ($formal as $key => $val) {echo $val['edulevel'].'<br>';}?></td>
+				<td><?php foreach ($formal as $key => $val) {echo $val['institutionname'].'<br>';}?></td>
+				<td><?php foreach ($formal as $key => $val) {echo $val['major'].'<br>';}?></td>
+				<td><?php foreach ($formal as $key => $val) {echo $val['startyear'].'<br>';}?></td>
+				<td><?php foreach ($formal as $key => $val) {echo $val['endyear'].'<br>';}?></td>
+			</tr>
+		</table>
+
+		<br><label>IPK</label>:
+		<table class="table table-striped table-bordered">
+			<tr>
+				<th>Tahun</th>
+				<th>Tingkat</th>
+				<th>Jurusan</th>
+				<th>IPK</th>
+			</tr>
+			<tr>
+				<td><?php foreach ($ipk as $key => $val) {echo $val['year'].'<br>';}?></td>
+				<td><?php foreach ($ipk as $key => $val) {echo $val['edulevel'].'<br>';}?></td>
+				<td><?php foreach ($ipk as $key => $val) {echo $val['major'].'<br>';}?></td>
+				<td><?php foreach ($ipk as $key => $val) {echo $val['gpa'].'<br>';}?></td>
+			</tr>
+		</table>
+		
+		<br><label>Non-Formal</label>:
+		<table class="table table-striped table-bordered">
+			<tr>
+				<th>Nama Lembaga</th>
+				<th>Bidang Studi</th>
+				<th>Jurusan</th>
+				<th>Periode Masuk</th>
+				<th>Periode Lulus</th>
+			</tr>
+			<tr>
+				<td><?php foreach ($nonforamal as $key => $val) {echo $val['institutionname'].'<br>';}?></td>
+				<td><?php foreach ($nonforamal as $key => $val) {echo $val['studyfield'].'<br>';}?></td>
+				<td><?php foreach ($nonforamal as $key => $val) {echo $val['major'].'<br>';}?></td>
+				<td><?php foreach ($nonforamal as $key => $val) {echo $val['startperiod'].'<br>';}?></td>
+				<td><?php foreach ($nonforamal as $key => $val) {echo $val['endperiod'].'<br>';}?></td>
+			</tr>
+		</table>			 
+
+			 
+		</div>
+	</div>
+
+	<br>
+	<div>
+		<div class="solid">
+			<h4><u>Hasil Tes</u></h4>
+
+			<label>Tes Psikologi</label>:
+			<!--<table class="table table-striped table-bordered pokok">
+				<tr>
+					<td>Tanggal</td>
+					<td><?php echo $res[0]['psychotestdate'];?></td>
+				<tr>
+				<tr>
+					<td>Durasi</td>
+					<td><?php echo $res[0]['psychotestduration'];?></td>
+				<tr>
+				<tr>
+					<td>Total Skor</td>
+					<td><?php echo $res[0]['psychotesttotalscore'];?></td>
+				<tr>
+			</table>
+			<br><label>Detail</label>: -->
+				<table class="table table-striped table-bordered">
+					<tr>
+						<th>Jenis Tes</th>
+						<th>Jawaban Benar</th>
+						<th>Skor</th>
+					</tr>
+					<tr>
+						<td><?php foreach ($psycho as $key => $val) {echo $val['testtype'].'<br>';}?></th>
+						<td><?php foreach ($psycho as $key => $val) {echo $val['correct_answers'].'<br>';}?></th>
+						<td><?php foreach ($psycho as $key => $val) {echo $val['score'].'<br>';}?></th>
+					</tr>
+				</table>
+			
+			<br><label>Tes Personality</label>:	
+					<!--<table cclass="table table-striped table-bordered pokok">
+						<tr>
+							<td>Tanggal</td>
+							<td><?php echo $res[0]['personaltestdate'];?></td>
+						<tr>
+						<tr>
+							<td>Durasi</td>
+							<td><?php echo $res[0]['personaltestduration'];?></td>
+						<tr>
+						<tr>
+							<td>Total Skor</td>
+							<td><?php echo $res[0]['personaltesttotalscore'];?></td>
+						<tr>
+					</table>
+					<br><label>Detail</label>: !-->
+						<table class="table table-striped table-bordered">
+							<tr>
+								<th>Jenis Tes</th>
+								<th>Jawaban Benar</th>
+								<th>Skor</th>
+							</tr>
+							<tr>
+								<td><?php foreach ($ptest as $key => $val) {echo $val['testtype'].'<br>';}?></th>
+								<td><?php foreach ($ptest as $key => $val) {echo $val['correct_answers'].'<br>';}?></th>
+								<td><?php foreach ($ptest as $key => $val) {echo $val['score'].'<br>';}?></th>
+							</tr>
+						</table>
+			</ul>
+		</div>
+	</div>
+
+</body>
+</html>
